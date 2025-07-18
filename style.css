@@ -265,7 +265,9 @@
 .shrink {
  /* width: 68%; */
 }
-
+.message p {
+    margin-bottom: 10px;
+}
 
 
 
@@ -327,6 +329,9 @@
 }
 .new-bot-message {
   min-height: 43dvh;
+}
+b {
+    font-weight: 500;
 }
 .quick-prompts-footer {
     position: absolute;

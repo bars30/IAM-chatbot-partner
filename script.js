@@ -34,24 +34,107 @@ function typeText(container, text, delay = 15, callback) {
     }
   }, delay);
 }
+// function typeTextHTML(container, html, delay = 20, callback) {
+//   container.innerHTML = ''; // Մաքրել նախկին պարունակությունը
+
+//   // Ստեղծել թաքնված span տարր
+//   const tempDiv = document.createElement("div");
+//   tempDiv.innerHTML = html;
+//   const nodes = Array.from(tempDiv.childNodes);
+
+//   let currentIndex = 0;
+
+//   function typeNextNode() {
+//     if (currentIndex >= nodes.length) {
+//       if (callback) callback();
+//       return;
+//     }
+
+//     const node = nodes[currentIndex];
+//     const clone = node.cloneNode(true);
+
+//     if (clone.nodeType === Node.TEXT_NODE) {
+//       let text = clone.textContent;
+//       let i = 0;
+//       const span = document.createElement("span");
+//       container.appendChild(span);
+
+//       const interval = setInterval(() => {
+//         span.textContent += text.charAt(i);
+//         i++;
+//         if (i >= text.length) {
+//           clearInterval(interval);
+//           currentIndex++;
+//           typeNextNode();
+//         }
+//       }, delay);
+//     } else {
+//       container.appendChild(clone);
+//       currentIndex++;
+//       typeNextNode();
+//     }
+//   }
+
+//   typeNextNode();
+// }
+
+function typeTextHTML(container, html, delay = 20, callback) {
+  container.innerHTML = ''; // Մաքրել նախորդ պարունակությունը
+
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = html;
+  const nodes = Array.from(tempDiv.childNodes);
+
+  let currentIndex = 0;
+
+  function typeNextNode() {
+    if (currentIndex >= nodes.length) {
+      if (callback) callback();
+      return;
+    }
+
+    const node = nodes[currentIndex];
+    
+    if (node.nodeType === Node.TEXT_NODE) {
+      const span = document.createElement("span");
+      container.appendChild(span);
+
+      typeText(span, node.textContent, delay, () => {
+        currentIndex++;
+        typeNextNode();
+      });
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      const clone = node.cloneNode(false); // clone only the element, not children
+      container.appendChild(clone);
+
+      // handle child nodes recursively
+      const childHTML = node.innerHTML;
+      typeTextHTML(clone, childHTML, delay, () => {
+        currentIndex++;
+        typeNextNode();
+      });
+    } else {
+      currentIndex++;
+      typeNextNode();
+    }
+  }
+
+  typeNextNode();
+}
+
 
   function getBotReply(prompt) {
     switch (prompt) {
       case "Why Companies Choose Us":
         return `
-        Seeking Top IAM Talent? We streamline your hiring by delivering pre-vetted experts in Okta, Azure AD, SailPoint, CyberArk, and more. Discover precision talent that fits your exact needs.
-●	Deep IAM Specialization: We're not generalists. Our exclusive focus on IAM, PAM, IGA, CIAM, and MIM means we speak your language, understanding complex needs from Zero Trust to DevSecOps with Identity focus.
-●	High-Caliber, Vetted Experts: We connect you with experienced IAM Engineers, Architects, and Consultants who thrive in ISO 27001 / SOC 2 environments. Our talent is rigorously vetted for technical prowess and cultural fit.
-●	Your Strategic Talent Partner: For CISOs, Heads of IAM, and HR/TA Partners, we're a trusted extension of your team. We quickly deliver IAM-literate candidates, anticipating triggers like new projects (MFA, SSO) or audits, saving you time and effort.
-●	Targeted Market Access: Specializing in Germany's Banking, Tech, Manufacturing, and Pharma sectors, our reach extends across DACH and key EU markets, sourcing both German and English-speaking professionals.
-Ready to Secure Your Digital Future with the Right IAM Talent? Find Your Next IAM Expert Now.
-●	Deep IAM Specialization: We're not generalists. Our exclusive focus on IAM, PAM, IGA, CIAM, and MIM means we speak your language, understanding complex needs from Zero Trust to DevSecOps with Identity focus.
-●	High-Caliber, Vetted Experts: We connect you with experienced IAM Engineers, Architects, and Consultants who thrive in ISO 27001 / SOC 2 environments. Our talent is rigorously vetted for technical prowess and cultural fit.
-●	Your Strategic Talent Partner: For CISOs, Heads of IAM, and HR/TA Partners, we're a trusted extension of your team. We quickly deliver IAM-literate candidates, anticipating triggers like new projects (MFA, SSO) or audits, saving you time and effort.
-●	Targeted Market Access: Specializing in Germany's Banking, Tech, Manufacturing, and Pharma sectors, our reach extends across DACH and key EU markets, sourcing both German and English-speaking professionals.
-Ready to Secure Your Digital Future with the Right IAM Talent? Find Your Next IAM Expert Now.
-
-        `;
+         <p><b>Seeking Top IAM Talent?</b> We streamline your hiring by delivering pre-vetted experts in <b>Okta, Azure AD, SailPoint, CyberArk,</b> and more. Discover precision talent that fits your exact needs.</p>
+        
+         <ul>
+          <li><b>Deep IAM Specialization:</b> We're not generalists. Our exclusive focus on <b>IAM, PAM, IGA, CIAM, and MIM</b> means we speak your language, understanding complex needs from <b>Zero Trust</b> to <b>DevSecOps with Identity focus.</b></li>
+          <li></li>
+         </ul>
+        
+         `;
       case "Services for Clients":
         return `We offer Permanent, Retained, and Executive Search services, as well as contract/interim IAM staffing tailored to your needs.`;
       case "Hiring Process":
@@ -59,7 +142,16 @@ Ready to Secure Your Digital Future with the Right IAM Talent? Find Your Next IA
       case "Technological Expertise & Roles":
         return `We place experts in IAM, PAM, CIAM, IGA, DevSecOps, and more – experienced with platforms like Okta, SailPoint, CyberArk, Azure AD, etc.`;
       case "IAM Talent Network":
-        return `We have a curated network of 8,000+ IAM professionals across Europe, 5,000+ in Germany. Many are already known personally.`;
+        return `
+        <p>We connect IAM talent with exclusive roles in Germany and DACH:</p>
+        <ul>
+          <li>Roles in Okta, CyberArk, SailPoint, Azure AD, etc.</li>
+          <li>Access to unadvertised jobs in Banking, Tech, Pharma</li>
+          <li>Personalized job search, salary benchmarking, and resume prep</li>
+          <li>Confidential and expert-led recruitment support</li>
+        </ul>
+        <p>Let us help you find the right long-term move.</p>
+        `;
       case "Story & Purpose":
         return `IAM Hiring was founded to fill the gap in specialized IAM recruiting in Germany. Our mission is to empower businesses with IAM talent.`;
       case "Team":
@@ -127,20 +219,28 @@ Ready to Secure Your Digital Future with the Right IAM Talent? Find Your Next IA
         }
 
 
+console.log("botp", botP);
+console.log(getBotReply(selectedPrompt));
 
 questionsBtn.disabled = true;
+
+typeTextHTML(botP, getBotReply(selectedPrompt), 20, () => {
+  questionsBtn.disabled = false;
+});
+
+
         // Սկսել տառ առ տառ գրելը
-        typeText(botP, getBotReply(selectedPrompt), 20, () => {
-          questionsBtn.disabled = false;
-          // chatboxMessages.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'start' });
-setTimeout(() => {
-    // chatboxMessages.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 30);
-          console.log("bdffdf");
+//         typeText(botP, getBotReply(selectedPrompt), 20, () => {
+//           questionsBtn.disabled = false;
+//           // chatboxMessages.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'start' });
+// setTimeout(() => {
+//     // chatboxMessages.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'start' });
+//   }, 30);
+//           console.log("bdffdf");
           
-          // Կամ սքրոլ անել վերջը, եթե անհրաժեշտ է, կարող ես ավելացնել այստեղ
-          // chatboxMessages.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
+//           // Կամ սքրոլ անել վերջը, եթե անհրաժեշտ է, կարող ես ավելացնել այստեղ
+//           // chatboxMessages.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'start' });
+//         });
 
       }, 400);
     });
