@@ -107,7 +107,7 @@
 } */
 .chat {
   padding: 12px 0 0;
-  height: 72vh;
+  height: 76vh;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -397,9 +397,10 @@
   }
   .send-message {
     justify-content: end;
+    width: 15% !important;
   }
   .shrink {
-    width: 6% !important;
+    width: 16% !important;
   }
   .btn-cont {
     min-width: 41% !important;
@@ -422,5 +423,8 @@
   }
   .quick-prompts-cont {
     width: 100% !important;
+  }
+  .quick-prompts-btn {
+    font-size: 12px !important;
   }
 }
