@@ -69,8 +69,9 @@
 .chatbox-header, .quick-prompts, .chatbox-messages, .chatbox-footer {
  padding: 0 12px;
 }
-.chatbox-footer {
+.footer {
  border-top: 1px solid var(--border-color);
+ padding-top: 8px;
 }
 .chatbox-header {
  display: flex;
@@ -175,7 +176,7 @@
 .chatbox-footer {
  display: flex;
  justify-content: space-between;
- padding-top: 12px;
+     padding-top: 8px;
 }
 
 .chatbox-footer-btn {
@@ -245,18 +246,24 @@
 }
 .chatbox-input {
  border: none;
- padding: 0 8px;
- width: 92%;
+ padding: 0 12px;
+ width: 100%;
  outline: none;
+ resize: none;
+ height: auto;
+ height: auto;
+  min-height: 1.5em;
+  max-height: 150px;        /* սա է առավելագույն բարձրությունը */
+  line-height: 1.5em;
 }
 .send-message {
     display: flex;
-    width: 84%;
+    width: fit-content;
     justify-content: space-between;
     transition: width 0.4s ease;
 }
 .shrink {
- width: 68%;
+ /* width: 68%; */
 }
 
 
@@ -319,12 +326,12 @@
   margin-right: 8px;
 }
 .new-bot-message {
-  min-height: 45dvh;
+  min-height: 43dvh;
 }
 .quick-prompts-footer {
     position: absolute;
     gap: 12px;
-    margin: 12px 0;
+    margin: 12px 0 0 0;
     animation: slideUpFromBottom 0.4s ease;
     align-items: center;
     justify-content: center;
@@ -392,15 +399,10 @@
 }
 }
 @media only screen and (max-width: 768px){
- .send-message input.chatbox-input {
-    display: none;
-  }
-  .send-message {
-    justify-content: end;
-    width: 15% !important;
-  }
+
+
   .shrink {
-    width: 16% !important;
+    /* width: 16% !important; */
   }
   .btn-cont {
     min-width: 41% !important;
@@ -416,7 +418,7 @@
     height: 82vh;
   }
   .new-bot-message {
-    min-height: 62dvh !important;
+    min-height: 59dvh !important;
   }
   .quick-prompts-header {
     font-size: 20px;

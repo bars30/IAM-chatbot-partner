@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const questionsBtn = document.querySelector(".chatbox-footer-btn-questions");
   const input = document.querySelector(".send-message");
 
-function typeText(container, text, delay = 20, callback) {
+function typeText(container, text, delay = 15, callback) {
   let i = 0;
   container.textContent = ''; // Մաքրել նախորդը
   const interval = setInterval(() => {
@@ -177,6 +177,10 @@ footerPromptButtons.forEach((btn) => {
   });
 });
 
+const textarea = document.getElementById('chatbox-input');
 
-
+textarea.addEventListener('input', function () {
+  this.style.height = 'auto'; // reset height first
+  this.style.height = Math.min(this.scrollHeight, 80) + 'px'; // մինչև 150px բարձրանա
+});
 });
