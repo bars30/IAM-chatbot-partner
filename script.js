@@ -20,13 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function typeText(container, text, delay = 15, callback) {
   let i = 0;
-  container.textContent = ''; // Մաքրել նախորդը
+  container.textContent = '';
   const interval = setInterval(() => {
     container.textContent += text.charAt(i);
     i++;
 
-    // ԱՅՍՏԵՂ ԱՎԵԼԱՑՆՈՒՄ ԵՆՔ ՍՔՐՈԼԼԸ
-    // container.parentElement.parentElement.scrollTop = container.parentElement.parentElement.scrollHeight;
 
     if (i >= text.length) {
       clearInterval(interval);
@@ -34,52 +32,10 @@ function typeText(container, text, delay = 15, callback) {
     }
   }, delay);
 }
-// function typeTextHTML(container, html, delay = 20, callback) {
-//   container.innerHTML = ''; // Մաքրել նախկին պարունակությունը
 
-//   // Ստեղծել թաքնված span տարր
-//   const tempDiv = document.createElement("div");
-//   tempDiv.innerHTML = html;
-//   const nodes = Array.from(tempDiv.childNodes);
-
-//   let currentIndex = 0;
-
-//   function typeNextNode() {
-//     if (currentIndex >= nodes.length) {
-//       if (callback) callback();
-//       return;
-//     }
-
-//     const node = nodes[currentIndex];
-//     const clone = node.cloneNode(true);
-
-//     if (clone.nodeType === Node.TEXT_NODE) {
-//       let text = clone.textContent;
-//       let i = 0;
-//       const span = document.createElement("span");
-//       container.appendChild(span);
-
-//       const interval = setInterval(() => {
-//         span.textContent += text.charAt(i);
-//         i++;
-//         if (i >= text.length) {
-//           clearInterval(interval);
-//           currentIndex++;
-//           typeNextNode();
-//         }
-//       }, delay);
-//     } else {
-//       container.appendChild(clone);
-//       currentIndex++;
-//       typeNextNode();
-//     }
-//   }
-
-//   typeNextNode();
-// }
 
 function typeTextHTML(container, html, delay = 20, callback) {
-  container.innerHTML = ''; // Մաքրել նախորդ պարունակությունը
+  container.innerHTML = ''; 
 
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = html;
@@ -104,10 +60,9 @@ function typeTextHTML(container, html, delay = 20, callback) {
         typeNextNode();
       });
     } else if (node.nodeType === Node.ELEMENT_NODE) {
-      const clone = node.cloneNode(false); // clone only the element, not children
+      const clone = node.cloneNode(false); 
       container.appendChild(clone);
 
-      // handle child nodes recursively
       const childHTML = node.innerHTML;
       typeTextHTML(clone, childHTML, delay, () => {
         currentIndex++;
@@ -421,10 +376,7 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
     btn.addEventListener("click", () => {
       const selectedPrompt = btn.textContent;
 
-      // Անջատել բոլոր կոճակները
       promptButtons.forEach(b => b.disabled = true);
-
-      // Անիմացիայով թաքցնել հարցերի հատվածը
       promptsSection.classList.add("fade-out");
 
       setTimeout(() => {
@@ -436,7 +388,6 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
         }, 200);
       
 
-        // Օգտատիրոջ հաղորդագրությունը ավելացնել չատին
         const userMsg = document.createElement("div");
         userMsg.className = "message user-message";
         const userP = document.createElement("p");
@@ -445,10 +396,9 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
         chatboxMessages.appendChild(userMsg);
 
         setTimeout(() => {
-  userMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}, 50); // կամ 100 մվրկ
+          userMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50); 
 
-        // Ստեղծել bot-ի պատասխանը
         const botMsg = document.createElement("div");
         botMsg.className = "message bot-message";
         const botP = document.createElement("p");
@@ -479,26 +429,10 @@ questionsBtn.disabled = true;
 typeTextHTML(botP, getBotReply(selectedPrompt), 20, () => {
   questionsBtn.disabled = false;
 });
-
-
-        // Սկսել տառ առ տառ գրելը
-//         typeText(botP, getBotReply(selectedPrompt), 20, () => {
-//           questionsBtn.disabled = false;
-//           // chatboxMessages.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'start' });
-// setTimeout(() => {
-//     // chatboxMessages.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'start' });
-//   }, 30);
-//           console.log("bdffdf");
-          
-//           // Կամ սքրոլ անել վերջը, եթե անհրաժեշտ է, կարող ես ավելացնել այստեղ
-//           // chatboxMessages.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'start' });
-//         });
-
       }, 400);
     });
   });
 
-  // Questions կոճակի EventListener
   questionsBtn.addEventListener("click", () => {
     const footerPrompts = document.querySelector(".quick-prompts-footer");
     if (footerPrompts.style.display === "flex") {
@@ -515,7 +449,6 @@ typeTextHTML(botP, getBotReply(selectedPrompt), 20, () => {
   });
 
 
-  // Footer quick prompts կոճակների event listener-ներ
 const footerPromptButtons = document.querySelectorAll('.quick-prompts-footer .quick-prompts-btn');
 const footerPrompts = document.querySelector(".quick-prompts-footer");
 
@@ -532,18 +465,17 @@ footerPromptButtons.forEach((btn) => {
 const textarea = document.getElementById('chatbox-input');
 
 textarea.addEventListener('input', function () {
-  this.style.height = 'auto'; // reset height first
-  this.style.height = Math.min(this.scrollHeight, 80) + 'px'; // մինչև 150px բարձրանա
+  this.style.height = 'auto'; 
+  this.style.height = Math.min(this.scrollHeight, 80) + 'px'; 
 });
 
 
 
 
 
-let chatState = "waitingUserQuestion"; // Կանխադրված վիճակ
+let chatState = "waitingUserQuestion"; 
 
 const chatboxInput = document.getElementById("chatbox-input");
-// const chatboxMessages = document.querySelector(".chatbox-messages");
 const sendBtn = document.querySelector(".chatbox-send-btn");
 
 function addMessage(text, sender = "bot") {
@@ -554,48 +486,11 @@ function addMessage(text, sender = "bot") {
   msgDiv.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-// sendBtn.addEventListener("click", () => {
-// console.log(sendBtn);
-// console.log(45);
-// promptsSection.classList.add("fade-out");
-// questionsBtn.classList.add("visible");
-//   promptsSection.classList.add("fade-out-display-none");
-
-
-//   const userInput = chatboxInput.value.trim();
-//   if (!userInput) return;
-
-//   addMessage(userInput, "user");  // Օգտատիրոջ հաղորդագրությունը
-
-//   chatboxInput.value = "";
-//   chatboxInput.style.height = "auto";
-
-//   if (chatState === "waitingUserQuestion") {
-//     addMessage("Thank you for your question! To assist you better, may I have your <b>full name</b>?", "bot");
-//     chatState = "waitingName";
-
-//   } else if (chatState === "waitingName") {
-//     addMessage(`Thanks, <b>${userInput}</b>! Could you please provide your <b>email address</b>?`, "bot");
-//     chatState = "waitingEmail";
-
-//   } else if (chatState === "waitingEmail") {
-//     // Հեշտությամբ կարող ենք այստեղ էլ էլ․ փոստի վալիդացիա անել, հիմա օրինակով
-//     if (userInput.includes("@")) {
-//       addMessage("Thank you! Our consultant will contact you shortly. Have a great day!", "bot");
-//       chatState = "done";
-//     } else {
-//       addMessage("That doesn't look like a valid email. Please enter a valid email address.", "bot");
-//     }
-//   } else if (chatState === "done") {
-//     addMessage("We've already received your info. Our consultant will contact you soon.", "bot");
-//   }
-// });
 
 sendBtn.addEventListener("click", () => {
   const userInput = chatboxInput.value.trim();
   if (!userInput) return;
 
-  // Թաքցնել հարցերի բաժինը
   promptsSection.classList.add("fade-out");
   promptsSection.classList.add("fade-out-display-none");
   questionsBtn.classList.add("visible");
@@ -612,7 +507,7 @@ sendBtn.addEventListener("click", () => {
       <p>Unfortunately, I can't answer this question directly, but one of our consultants will reach out to you shortly.</p>
     `;
     addMessage(fullResponse, "bot");
-    chatState = "done"; // փոխում ենք վիճակը՝ նորից հարցեր չտա
+    chatState = "done";
 
   } else if (chatState === "done") {
     addMessage("We've already received your info. Our consultant will contact you soon.", "bot");
