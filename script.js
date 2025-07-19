@@ -385,6 +385,33 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
     <a href="https://www.linkedin.com/company/107770925/admin/dashboard/" target="_blank" rel="noopener noreferrer">LinkedIn Company Page</a>
   </p>
         `;
+      case "Career Consultation":
+      return `
+        <p><b>Ready to strategically plan your next career move in Identity & Access Management?</b> Our experienced team at IAM Hiring is here to consult with you.</p>
+        <p>We offer personalized career guidance, insights into the latest IAM market trends in Germany and DACH, and expert advice on optimizing your job search. Whether you're looking for market intelligence, interview preparation tips, or a clear path for your professional growth, we're dedicated to helping you achieve your aspirations.</p>
+        <p>Book your confidential career consultation by clicking the link below:</p>
+        <p><a href="https://outlook.office.com/book/IAMhiring@starks-consulting.de/?ismsaljsauthenabled" target="_blank" rel="noopener noreferrer">Schedule Career Consultation</a></p>
+      `;
+      case "Current IAM Job Openings":
+  return `
+    <p><b>Ready for Your Next IAM Career Step?</b></p>
+    <p>Jobs, jobs, jobs</p>
+    <p><a href="#send-cv">Send Us Your CV</a> | <a href="#career-consultation">Request a Career Consultation</a></p>
+    <hr>
+    <p><b>Send Us Your CV</b></p>
+    <p>Happy that you're ready for your next career step in IAM! We're here to help you find the perfect match.</p>
+    <p>To get started, please attach your CV and all other relevant files (such as certificates, Zeugnisse, or project portfolios) using the upload feature below.</p>
+    <p>Please share in chat details about what you're looking for so we can tailor our search effectively:</p>
+    <ul>
+      <li>What kind of IAM or Cybersecurity roles are you interested in? (e.g., Senior IAM Engineer, Cloud IAM Architect, PAM Consultant, DevSecOps with Identity focus)</li>
+      <li>What are your preferred locations? (e.g., Berlin, Munich, Frankfurt, DACH region, remote, hybrid)</li>
+      <li>What are your salary expectations? (e.g., Annual gross salary range)</li>
+      <li>Are there any other specific job requirements or preferences you have? (e.g., industry focus, company size, specific tech stack you want to work with, team culture, work-life balance needs)</li>
+    </ul>
+    <p>We look forward to reviewing your profile and helping you advance your career!</p>
+  `;
+
+      
       default:
         return `Thanks for your interest in "${prompt}". Let me tell you more...`;
     }

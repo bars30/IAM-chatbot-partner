@@ -295,6 +295,11 @@ img.section-img {
     width: 70%;
     border-radius: 12px;
 }
+hr {
+    outline: none;
+    border: 1px solid #f0f3f7;
+    margin: 0px 0 12px;
+}
 .fade-out {
   opacity: 0;
   transform: translateY(-10px);
