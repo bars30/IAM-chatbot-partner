@@ -535,4 +535,92 @@ textarea.addEventListener('input', function () {
   this.style.height = 'auto'; // reset height first
   this.style.height = Math.min(this.scrollHeight, 80) + 'px'; // մինչև 150px բարձրանա
 });
+
+
+
+
+
+let chatState = "waitingUserQuestion"; // Կանխադրված վիճակ
+
+const chatboxInput = document.getElementById("chatbox-input");
+// const chatboxMessages = document.querySelector(".chatbox-messages");
+const sendBtn = document.querySelector(".chatbox-send-btn");
+
+function addMessage(text, sender = "bot") {
+  const msgDiv = document.createElement("div");
+  msgDiv.className = `message ${sender}-message`;
+  msgDiv.innerHTML = `<p>${text}</p>`;
+  chatboxMessages.appendChild(msgDiv);
+  msgDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// sendBtn.addEventListener("click", () => {
+// console.log(sendBtn);
+// console.log(45);
+// promptsSection.classList.add("fade-out");
+// questionsBtn.classList.add("visible");
+//   promptsSection.classList.add("fade-out-display-none");
+
+
+//   const userInput = chatboxInput.value.trim();
+//   if (!userInput) return;
+
+//   addMessage(userInput, "user");  // Օգտատիրոջ հաղորդագրությունը
+
+//   chatboxInput.value = "";
+//   chatboxInput.style.height = "auto";
+
+//   if (chatState === "waitingUserQuestion") {
+//     addMessage("Thank you for your question! To assist you better, may I have your <b>full name</b>?", "bot");
+//     chatState = "waitingName";
+
+//   } else if (chatState === "waitingName") {
+//     addMessage(`Thanks, <b>${userInput}</b>! Could you please provide your <b>email address</b>?`, "bot");
+//     chatState = "waitingEmail";
+
+//   } else if (chatState === "waitingEmail") {
+//     // Հեշտությամբ կարող ենք այստեղ էլ էլ․ փոստի վալիդացիա անել, հիմա օրինակով
+//     if (userInput.includes("@")) {
+//       addMessage("Thank you! Our consultant will contact you shortly. Have a great day!", "bot");
+//       chatState = "done";
+//     } else {
+//       addMessage("That doesn't look like a valid email. Please enter a valid email address.", "bot");
+//     }
+//   } else if (chatState === "done") {
+//     addMessage("We've already received your info. Our consultant will contact you soon.", "bot");
+//   }
+// });
+
+sendBtn.addEventListener("click", () => {
+  const userInput = chatboxInput.value.trim();
+  if (!userInput) return;
+
+  // Թաքցնել հարցերի բաժինը
+  promptsSection.classList.add("fade-out");
+  promptsSection.classList.add("fade-out-display-none");
+  questionsBtn.classList.add("visible");
+
+  addMessage(userInput, "user");
+
+  chatboxInput.value = "";
+  chatboxInput.style.height = "auto";
+
+  if (chatState === "waitingUserQuestion") {
+    const fullResponse = `
+      <p>Thank you for your message!</p>
+      <p>To assist you better, please share your <b>full name</b> and <b>email address</b>.</p>
+      <p>Unfortunately, I can't answer this question directly, but one of our consultants will reach out to you shortly.</p>
+    `;
+    addMessage(fullResponse, "bot");
+    chatState = "done"; // փոխում ենք վիճակը՝ նորից հարցեր չտա
+
+  } else if (chatState === "done") {
+    addMessage("We've already received your info. Our consultant will contact you soon.", "bot");
+  }
+});
+
+
+
+
+
 });

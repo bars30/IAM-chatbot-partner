@@ -307,6 +307,10 @@ hr {
   transform: translateY(-10px);
   transition: opacity 0.4s ease, transform 0.4s ease;
   pointer-events: none;
+
+}
+.fade-out-display-none {
+  display: none;
 }
 .quick-prompts-btn:disabled {
   opacity: 0.4;
@@ -334,9 +338,10 @@ hr {
   position: relative;
   scroll-behavior: smooth;
   padding-bottom: 24px;
-
+  overflow-x: hidden;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  transition: all 0.4s ease;
 }
 .chatbox-messages::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
