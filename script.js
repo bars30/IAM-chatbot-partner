@@ -11,13 +11,55 @@ langButtons.forEach(button => {
 
 let firstMessage = true;
 
+
+
 document.addEventListener("DOMContentLoaded", () => {
+
+
   const promptButtons = document.querySelectorAll(".quick-prompts-btn");
   const promptsSection = document.querySelector(".quick-prompts");
   const chatboxMessages = document.querySelector(".chatbox-messages");
   const questionsBtn = document.querySelector(".chatbox-footer-btn-questions");
   const input = document.querySelector(".send-message");
 
+
+
+
+function restoreChatHistory() {
+  const savedHistory = localStorage.getItem("chatHistory");
+  if (!savedHistory) return;
+
+  let chatData = JSON.parse(savedHistory);
+
+  if (
+    chatData.length >= 2 &&
+    chatData[chatData.length - 1].sender === "bot" &&
+    chatData[chatData.length - 1].text === "<p></p>"
+  ) {
+    chatData.splice(chatData.length - 2, 2);
+  }
+
+  chatData.forEach((msg) => {
+    const msgDiv = document.createElement("div");
+    msgDiv.className = `message ${msg.sender}-message`;
+    msgDiv.innerHTML = msg.text;
+    chatboxMessages.appendChild(msgDiv);
+  });
+
+  if (chatData.length > 0) {
+    promptsSection.style.display = "none";
+    chatboxMessages.style.display = "flex";
+    input.classList.add("shrink");
+    questionsBtn.classList.add("visible");
+
+    setTimeout(() => {
+      chatboxMessages.scrollTop = chatboxMessages.scrollHeight;
+    }, 50);
+  }
+}
+
+
+  restoreChatHistory();
 function typeText(container, text, delay = 15, callback) {
   let i = 0;
   container.textContent = '';
@@ -394,6 +436,8 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
         userP.textContent = selectedPrompt;
         userMsg.appendChild(userP);
         chatboxMessages.appendChild(userMsg);
+        saveChatHistory();
+  console.log("🔥", localStorage.getItem('chatHistory'));
 
         setTimeout(() => {
           userMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -404,6 +448,8 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
         const botP = document.createElement("p");
         botMsg.appendChild(botP);
         chatboxMessages.appendChild(botMsg);
+        saveChatHistory();
+  console.log("2🔥", localStorage.getItem('chatHistory'));
 
 
 
@@ -420,7 +466,8 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
           botMsg.classList.add("new-bot-message");
         }
 
-
+      saveChatHistory();
+  console.log("🔥33", localStorage.getItem('chatHistory'));
 console.log("botp", botP);
 console.log(getBotReply(selectedPrompt));
 
@@ -428,6 +475,7 @@ questionsBtn.disabled = true;
 
 typeTextHTML(botP, getBotReply(selectedPrompt), 20, () => {
   questionsBtn.disabled = false;
+  saveChatHistory();
 });
       }, 400);
     });
@@ -484,8 +532,23 @@ function addMessage(text, sender = "bot") {
   msgDiv.innerHTML = `<p>${text}</p>`;
   chatboxMessages.appendChild(msgDiv);
   msgDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+  saveChatHistory();
+  console.log("🔥", localStorage.getItem('chatHistory'));
+  
 }
+function saveChatHistory() {
+  const messages = document.querySelectorAll(".chatbox-messages .message");
+  const chatData = [];
 
+  messages.forEach((msg) => {
+    chatData.push({
+      sender: msg.classList.contains("user-message") ? "user" : "bot",
+      text: msg.innerHTML
+    });
+  });
+
+  localStorage.setItem("chatHistory", JSON.stringify(chatData));
+}
 
 sendBtn.addEventListener("click", () => {
   const userInput = chatboxInput.value.trim();
