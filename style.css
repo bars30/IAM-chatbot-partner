@@ -265,13 +265,36 @@
 .shrink {
  /* width: 68%; */
 }
-.message p {
+.bot-message p {
     margin-bottom: 10px;
 }
-
-
-
-
+ul, ol {
+    padding-left: 30px;
+}
+li {
+    margin-bottom: 4px;
+}
+img.team-member-img {
+    width: 29%;
+    display: block;
+    margin-bottom: 10px;
+    border-radius: 12px;
+        margin-right: 2%;
+}
+article.team-member {
+    border-bottom: 1px solid #f0f3f7;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: start;
+}
+.article-cont {
+    width: 66%;
+}
+img.section-img {
+    width: 70%;
+    border-radius: 12px;
+}
 .fade-out {
   opacity: 0;
   transform: translateY(-10px);
