@@ -25,7 +25,20 @@
  --button-radius: 8px;
  --transition-default: 0.3s ease-in-out;
 }
-
+body.dark-mode {
+  --bg-page: #19212E;
+  --bg-chatbox: #242B37;
+  --bg-language-switch: #2D343E;
+  --prompt-bg: #2E343F;
+  --prompt-text: #F1F2F2;
+  --border-color: #3A414B;
+  --text-subtitle: #B0B8C1;
+  --text-placeholder: #A0AAB4;
+  --text-dark: #ffffff;
+}
+body {
+  transition: all 0.2s ease-in-out;
+}
 
 .container {
  background-color: var(--bg-page);
@@ -93,6 +106,7 @@
 .logo-header-title {
  font-weight: 500;
  font-size: 20px;
+ color: var(--text-dark);
 }
 .logo-header-subtitle {
  color: var(--text-subtitle);
@@ -114,13 +128,16 @@
   position: relative;
 }
 
-
+p {
+  color: var(--text-dark);
+}
 .quick-prompts-header {
  font-weight: 500;
  font-size: 24px;
  width: 84%;
  /* margin: auto; */
  text-align: center;
+ color: var(--text-dark);
 }
 
 .quick-prompts-btn {
@@ -228,7 +245,7 @@
  display: flex;
  align-items: center;
  justify-content: center;
- width: 29.25px;
+ width: 33.25px;
  position: relative;
 }
 .chatbox-send-btn:hover {
@@ -255,6 +272,7 @@
   min-height: 1.5em;
   max-height: 150px;        /* սա է առավելագույն բարձրությունը */
   line-height: 1.5em;
+  background-color: var(--bg-chatbox);
 }
 .send-message {
     display: flex;
@@ -359,7 +377,7 @@ hr {
     justify-content: start;
         min-width: 17%;
 }
-.btn-cont button:nth-child(1) {
+.btn-cont button:nth-child(1), .btn-cont button:nth-child(2) {
   margin-right: 8px;
 }
 .new-bot-message {
@@ -377,11 +395,14 @@ b {
     justify-content: center;
     position: absolute;
     z-index: 86;
-    background-color: #fdfeff;
+    background-color: var(--bg-chatbox);
     border-top: 1px solid var(--border-color);
     padding-top: 12px;
     border-radius: 8px;
         bottom: 43px;
+}
+a {
+    color: var(--brand-blue);
 }
 /* .spacer {
   margin-top: auto;
@@ -481,4 +502,86 @@ b {
   img.section-img {
     width: 100%;
   }
+}
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: sans-serif;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 60px;
+  height: 32px;
+  display: inline-block;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  background-color: #ddd;
+  border-radius: 34px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.4s;
+  overflow: hidden;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #999;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.moon-icon {
+  left: 10px;
+  opacity: 1;
+}
+
+.sun-icon {
+  right: 10px;
+  opacity: 0;
+}
+
+/* Checked mode */
+input:checked + .slider {
+  background-color: #2c5eff;
+}
+
+input:checked + .slider::before {
+  transform: translateX(28px);
+  background-color: white;
+}
+
+input:checked + .slider .moon-icon {
+  opacity: 0;
+}
+
+input:checked + .slider .sun-icon {
+  opacity: 1;
 }

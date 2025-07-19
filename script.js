@@ -516,6 +516,35 @@ sendBtn.addEventListener("click", () => {
 
 
 
+const toggle = document.getElementById("modeToggle");
+toggle.addEventListener("change", () => {
+  const root = document.documentElement;
+
+  if (toggle.checked) {
+    // DARK MODE
+    root.style.setProperty('--bg-page', '#19212E');
+    root.style.setProperty('--bg-chatbox', '#242B37');
+    root.style.setProperty('--bg-language-switch', '#2D343E');
+    root.style.setProperty('--prompt-bg', '#2E343F');
+    root.style.setProperty('--prompt-text', '#F1F2F2');
+    root.style.setProperty('--border-color', '#3A414B');
+    root.style.setProperty('--text-subtitle', '#B0B8C1'); // օրինակ
+    root.style.setProperty('--text-placeholder', '#A0AAB4');
+    root.style.setProperty('--text-dark', '#ffffff');
+  } else {
+    // LIGHT MODE
+    root.style.setProperty('--bg-page', '#F2F7FD');
+    root.style.setProperty('--bg-chatbox', '#FDFEFF');
+    root.style.setProperty('--bg-language-switch', '#F9F9F9');
+    root.style.setProperty('--prompt-bg', '#FDFEFF');
+    root.style.setProperty('--prompt-text', '#4A5362');
+    root.style.setProperty('--border-color', '#F0F3F7');
+    root.style.setProperty('--text-subtitle', '#536073');
+    root.style.setProperty('--text-placeholder', '#6F7E93');
+    root.style.setProperty('--text-dark', '#1a1a1a');
+  }
+});
+
 
 
 });
