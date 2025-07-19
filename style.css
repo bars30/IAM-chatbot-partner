@@ -294,6 +294,8 @@ article.team-member {
 img.section-img {
     width: 70%;
     border-radius: 12px;
+    display: block;
+    margin-bottom: 8px;
 }
 hr {
     outline: none;
@@ -461,5 +463,17 @@ b {
   }
   .quick-prompts-btn {
     font-size: 12px !important;
+  }
+  article.team-member {
+    display: block;
+  }
+  img.team-member-img {
+    width: 100%;
+  }
+  .article-cont {
+    width: 100%;
+  }
+  img.section-img {
+    width: 100%;
   }
 }
