@@ -348,6 +348,7 @@ hr {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
   transition: all 0.4s ease;
+  padding: 12px;
 }
 .chatbox-messages::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
@@ -375,7 +376,7 @@ b {
     font-weight: 500;
 }
 .quick-prompts-footer {
-    position: absolute;
+position: absolute;
     gap: 12px;
     margin: 12px 0 0 0;
     animation: slideUpFromBottom 0.4s ease;
@@ -387,7 +388,8 @@ b {
     border-top: 1px solid var(--border-color);
     padding-top: 12px;
     border-radius: 8px;
-        bottom: 43px;
+    bottom: 120px;
+    width: 56.5%;
 }
 a {
     color: var(--brand-blue);
@@ -440,11 +442,17 @@ a {
      #chatbox-container {
         width: 95%;
     }
+        .quick-prompts-footer {
+        width: 94.5% !important;
+    }
 
 }
 @media only screen and (max-width: 1224px){
 .chatbox-container {
     width: 72%;
+}
+.quick-prompts-footer { 
+  width: 71.5%;
 }
 }
 @media only screen and (max-width: 768px){

@@ -623,7 +623,10 @@ sendBtn.addEventListener("click", () => {
     `;
     // addMessage(fullResponse, "bot");
     const newBotEl = addMessage(fullResponse, "bot");
-
+const element = document.querySelector('.new-bot-message');
+          if (element) {
+            element.classList.remove("new-bot-message");
+          }
 
 newBotEl.classList.add("new-bot-message");
 chatboxMessages.scrollTop = chatboxMessages.scrollHeight;
@@ -641,6 +644,10 @@ const fullResponse = `
     // addMessage(fullResponse, "bot");
     const newBotEl = addMessage(fullResponse, "bot");
 
+    const element = document.querySelector('.new-bot-message');
+          if (element) {
+            element.classList.remove("new-bot-message");
+          }
 
 newBotEl.classList.add("new-bot-message");
 chatboxMessages.scrollTop = chatboxMessages.scrollHeight;
