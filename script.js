@@ -526,16 +526,25 @@ let chatState = "waitingUserQuestion";
 const chatboxInput = document.getElementById("chatbox-input");
 const sendBtn = document.querySelector(".chatbox-send-btn");
 
-function addMessage(text, sender = "bot") {
+function addMessage(text, sender = "bot", animated = false, callback) {
   const msgDiv = document.createElement("div");
   msgDiv.className = `message ${sender}-message`;
-  msgDiv.innerHTML = `<p>${text}</p>`;
+
+  const p = document.createElement("p");
+  msgDiv.appendChild(p);
   chatboxMessages.appendChild(msgDiv);
-  msgDiv.scrollIntoView({ behavior: "smooth", block: "start" });
-  saveChatHistory();
-  console.log("🔥", localStorage.getItem('chatHistory'));
+
+  // Եթե բոտ է և ուզում ենք անիմացիա՝ օգտագործում ենք typeTextHTML
+
+    typeTextHTML(p, text, 20, () => {
+      msgDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (callback) callback();
+    });
   
+  saveChatHistory();
+  return msgDiv;
 }
+
 function saveChatHistory() {
   const messages = document.querySelectorAll(".chatbox-messages .message");
   const chatData = [];
@@ -550,6 +559,47 @@ function saveChatHistory() {
   localStorage.setItem("chatHistory", JSON.stringify(chatData));
 }
 
+// sendBtn.addEventListener("click", () => {
+//   const userInput = chatboxInput.value.trim();
+//   if (!userInput) return;
+
+//   promptsSection.classList.add("fade-out");
+//   promptsSection.classList.add("fade-out-display-none");
+//   questionsBtn.classList.add("visible");
+
+//   addMessage(userInput, "user");
+
+//   chatboxInput.value = "";
+//   chatboxInput.style.height = "auto";
+
+  
+
+//   if (chatState === "waitingUserQuestion") {
+//     const fullResponse = `
+//       <p>Thank you for your message!</p>
+//       <p>To assist you better, please share your <b>full name</b> and <b>email address</b>.</p>
+//       <p>Unfortunately, I can't answer this question directly, but one of our consultants will reach out to you shortly.</p>
+//     `;
+//     // addMessage(fullResponse, "bot");
+//     const newBotEl = addMessage(fullResponse, "bot");
+
+
+// newBotEl.classList.add("new-bot-message");
+// chatboxMessages.scrollTop = chatboxMessages.scrollHeight;
+
+
+// chatState = "done";
+//     // chatState = "done";
+    
+
+
+//   } else if (chatState === "done") {
+
+//     addMessage("We've already received your info. Our consultant will contact you soon.", "bot");
+//   }
+// });
+
+
 sendBtn.addEventListener("click", () => {
   const userInput = chatboxInput.value.trim();
   if (!userInput) return;
@@ -563,21 +613,45 @@ sendBtn.addEventListener("click", () => {
   chatboxInput.value = "";
   chatboxInput.style.height = "auto";
 
+  
+
   if (chatState === "waitingUserQuestion") {
     const fullResponse = `
       <p>Thank you for your message!</p>
       <p>To assist you better, please share your <b>full name</b> and <b>email address</b>.</p>
       <p>Unfortunately, I can't answer this question directly, but one of our consultants will reach out to you shortly.</p>
     `;
-    addMessage(fullResponse, "bot");
-    chatState = "done";
+    // addMessage(fullResponse, "bot");
+    const newBotEl = addMessage(fullResponse, "bot");
+
+
+newBotEl.classList.add("new-bot-message");
+chatboxMessages.scrollTop = chatboxMessages.scrollHeight;
+
+
+chatState = "done";
+    // chatState = "done";
+    
+
 
   } else if (chatState === "done") {
-    addMessage("We've already received your info. Our consultant will contact you soon.", "bot");
+const fullResponse = `
+      <p>We've already received your info. Our consultant will contact you soon.</p>
+    `;
+    // addMessage(fullResponse, "bot");
+    const newBotEl = addMessage(fullResponse, "bot");
+
+
+newBotEl.classList.add("new-bot-message");
+chatboxMessages.scrollTop = chatboxMessages.scrollHeight;
+
+
+chatState = "done";
+    // chatState = "done";
+    
+
   }
 });
-
-
 
 const toggle = document.getElementById("modeToggle");
 toggle.addEventListener("change", () => {

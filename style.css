@@ -455,9 +455,13 @@ a {
   .logo-header-subtitle {
     display: none;
   }
-  .chat {
+  /* .chat {
     height: 82vh;
-  }
+  } */
+   .chat {
+  height: calc(100vh - 200px) !important;
+}
+
   .new-bot-message {
     min-height: 59dvh !important;
   }
