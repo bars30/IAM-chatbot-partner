@@ -78,6 +78,9 @@ body {
  overflow: hidden;
  border: 1px solid var(--border-color);
  padding: 12px 0;
+ height: 92vh;
+  display: flex;
+  flex-direction: column;
 }
 .chatbox-header, .quick-prompts, .chatbox-messages, .chatbox-footer {
  padding: 0 12px;
@@ -117,12 +120,12 @@ body {
     flex-direction: column;
 }
 .chat {
-  padding: 12px 0 0;
-  height: 76vh;
+  flex: 1;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  position: relative;
 }
+
 
 p, b, span {
   color: var(--text-dark);
@@ -458,9 +461,9 @@ a {
   /* .chat {
     height: 82vh;
   } */
-   .chat {
+   /* .chat {
   height: calc(100vh - 115px) !important;
-}
+} */
 
   .new-bot-message {
     min-height: 59dvh !important;
