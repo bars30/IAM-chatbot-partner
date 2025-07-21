@@ -439,9 +439,15 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
         saveChatHistory();
   console.log("🔥", localStorage.getItem('chatHistory'));
 
-        setTimeout(() => {
+  if (!firstMessage) {
+    setTimeout(() => {
           userMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 50); 
+  }
+
+        // setTimeout(() => {
+        //   userMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // }, 50); 
 
         const botMsg = document.createElement("div");
         botMsg.className = "message bot-message";
