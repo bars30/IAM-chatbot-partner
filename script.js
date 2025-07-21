@@ -31,13 +31,14 @@ function restoreChatHistory() {
 
   let chatData = JSON.parse(savedHistory);
 
-  if (
-    chatData.length >= 2 &&
-    chatData[chatData.length - 1].sender === "bot" &&
-    chatData[chatData.length - 1].text === "<p></p>"
-  ) {
-    chatData.splice(chatData.length - 2, 2);
-  }
+if (
+  chatData.length >= 2 &&
+  chatData[chatData.length - 1].sender === "bot" &&
+  chatData[chatData.length - 1].text.replace(/<[^>]*>/g, '').trim() === ""
+) {
+  chatData.splice(chatData.length - 2, 2);
+}
+
 
   chatData.forEach((msg) => {
     const msgDiv = document.createElement("div");
@@ -536,16 +537,24 @@ function addMessage(text, sender = "bot", animated = false, callback) {
   msgDiv.appendChild(p);
   chatboxMessages.appendChild(msgDiv);
 
-  // Եթե բոտ է և ուզում ենք անիմացիա՝ օգտագործում ենք typeTextHTML
+  const isSimpleText = !/<[^>]+>/.test(text); // ստուգում է արդյոք կա՞ HTML
 
+  if (animated && !isSimpleText) {
+    // Եթե անիմացիա է պետք և HTML կա
     typeTextHTML(p, text, 20, () => {
       msgDiv.scrollIntoView({ behavior: "smooth", block: "start" });
       if (callback) callback();
     });
-  
+  } else {
+    p.innerHTML = text; // ուղղակի տեղադրի առանց անիմացիայի
+    msgDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (callback) callback();
+  }
+
   saveChatHistory();
   return msgDiv;
 }
+
 
 function saveChatHistory() {
   const messages = document.querySelectorAll(".chatbox-messages .message");
@@ -644,7 +653,8 @@ const fullResponse = `
       <p>We've already received your info. Our consultant will contact you soon.</p>
     `;
     // addMessage(fullResponse, "bot");
-    const newBotEl = addMessage(fullResponse, "bot");
+    // const newBotEl = addMessage(fullResponse, "bot");
+const newBotEl = addMessage(fullResponse, "bot", false); // առանց անիմացիայի
 
     const element = document.querySelector('.new-bot-message');
           if (element) {
