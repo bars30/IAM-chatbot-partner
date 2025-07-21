@@ -448,7 +448,7 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
         }, 50); 
     
   } else if (firstMessage && !!localStorage.getItem('chatHistory')) {
-    console.log(j);
+    console.log(1);
     
   }
   else {
