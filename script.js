@@ -24,21 +24,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
 function restoreChatHistory() {
   const savedHistory = localStorage.getItem("chatHistory");
   if (!savedHistory) return;
 
   let chatData = JSON.parse(savedHistory);
 
-if (
-  chatData.length >= 2 &&
-  chatData[chatData.length - 1].sender === "bot" &&
-  chatData[chatData.length - 1].text.replace(/<[^>]*>/g, '').trim() === ""
-) {
-  chatData.splice(chatData.length - 2, 2);
-}
-
+  if (
+    chatData.length >= 2 &&
+    chatData[chatData.length - 1].sender === "bot" &&
+    chatData[chatData.length - 1].text.replace(/<[^>]*>/g, '').trim() === ""
+  ) {
+    chatData.splice(chatData.length - 2, 2);
+  }
 
   chatData.forEach((msg) => {
     const msgDiv = document.createElement("div");
@@ -53,9 +51,10 @@ if (
     input.classList.add("shrink");
     questionsBtn.classList.add("visible");
 
-    setTimeout(() => {
-      chatboxMessages.scrollTop = chatboxMessages.scrollHeight;
-    }, 50);
+chatboxMessages.style.scrollBehavior = "auto";
+chatboxMessages.scrollTop = chatboxMessages.scrollHeight;
+chatboxMessages.style.scrollBehavior = ""; // reset to default (smooth) եթե պետք լինի հետո
+
   }
 }
 
