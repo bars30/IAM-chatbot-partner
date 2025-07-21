@@ -439,7 +439,19 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
         saveChatHistory();
   console.log("🔥", localStorage.getItem('chatHistory'));
 
-  if (!firstMessage) {
+  console.log("🔥🦋", localStorage.getItem('ChatHistory'));
+  console.log("✅✅✅✅✅✅✅✅", !localStorage.getItem('ChatHistory'));
+  
+  if (firstMessage && !!!localStorage.getItem('chatHistory')) {
+    setTimeout(() => {
+          userMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50); 
+    
+  } else if (firstMessage && !!localStorage.getItem('chatHistory')) {
+    console.log(j);
+    
+  }
+  else {
     setTimeout(() => {
           userMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 50); 
