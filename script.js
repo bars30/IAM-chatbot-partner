@@ -72,7 +72,7 @@ function typeText(container, text, delay = 15, callback) {
       clearInterval(interval);
       if (callback) callback();
     }
-  }, delay);
+  }, 7);
 }
 
 
@@ -456,8 +456,10 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
         if (firstMessage) {
           console.log('first message');
           firstMessage = false;
-          
+          botMsg.classList.add("new-bot-message");
         } else {
+          console.log("🎀🎀🎀🎀🎀🎀🎀🎀🎀");
+          
           const element = document.querySelector('.new-bot-message');
           if (element) {
             element.classList.remove("new-bot-message");

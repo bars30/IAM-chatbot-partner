@@ -386,9 +386,9 @@ position: absolute;
     z-index: 86;
     background-color: var(--bg-chatbox);
     border-top: 1px solid var(--border-color);
-    padding-top: 12px;
+    padding: 12px 0;
     border-radius: 8px;
-    bottom: 120px;
+    bottom: 108px;
     width: 56.5%;
 }
 a {
