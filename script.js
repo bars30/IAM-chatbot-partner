@@ -287,7 +287,7 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
         <article class="team-member">
           <img class="team-member-img" src="./img/team01.png" alt="">
     <div class="article-cont">
-    <p><b>Katja Olkhovaia</b></p>
+    <p><h3>Katja Olkhovaia</b></h3>
     <p>
       With 16 years of experience in IT Recruitment and a network of over 27,000 IT experts, Katja brings unparalleled insight into the industry. </p> 
       <p>She leads our strategic client partnerships, ensuring we deliver on the specific needs of CISOs and Heads of IAM.
@@ -439,15 +439,17 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
         saveChatHistory();
   console.log("🔥", localStorage.getItem('chatHistory'));
 
-  console.log("🔥🦋", localStorage.getItem('ChatHistory'));
-  console.log("✅✅✅✅✅✅✅✅", !localStorage.getItem('ChatHistory'));
+  console.log("🔥🦋", localStorage.getItem('chatHistory'));
+  console.log("✅✅✅✅✅✅✅✅", !localStorage.getItem('chatHistory'));
   
-  if (firstMessage && !!!localStorage.getItem('chatHistory')) {
+  if (firstMessage && !!localStorage.getItem('chatHistory')) {
     setTimeout(() => {
           userMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 50); 
+        console.log("ssssssss");
+        
     
-  } else if (firstMessage && !!localStorage.getItem('chatHistory')) {
+  } else if (firstMessage && !localStorage.getItem('chatHistory')) {
     console.log(1);
     
   }
@@ -688,6 +690,8 @@ chatState = "done";
 
   }
 });
+const logoLight = document.getElementById("logo-light");
+const logoDark = document.getElementById("logo-dark");
 
 const toggle = document.getElementById("modeToggle");
 toggle.addEventListener("change", () => {
@@ -696,7 +700,7 @@ toggle.addEventListener("change", () => {
   if (toggle.checked) {
     // DARK MODE
     root.style.setProperty('--bg-page', '#19212E');
-    root.style.setProperty('--bg-chatbox', '#242B37');
+    root.style.setProperty('--bg-chatbox', '#333942');
     root.style.setProperty('--bg-language-switch', '#2D343E');
     root.style.setProperty('--prompt-bg', '#2E343F');
     root.style.setProperty('--prompt-text', '#F1F2F2');
@@ -704,10 +708,18 @@ toggle.addEventListener("change", () => {
     root.style.setProperty('--text-subtitle', '#B0B8C1'); // օրինակ
     root.style.setProperty('--text-placeholder', '#A0AAB4');
     root.style.setProperty('--text-dark', '#ffffff');
+    root.style.setProperty('--header-footer', '#333942');
+    root.style.setProperty('--button-shadow', '#6c788d');
+
+     // Logo switch
+    logoLight.style.display = "none";
+    logoDark.style.display = "inline";
+
+
   } else {
     // LIGHT MODE
     root.style.setProperty('--bg-page', '#F2F7FD');
-    root.style.setProperty('--bg-chatbox', '#FDFEFF');
+    root.style.setProperty('--bg-chatbox', '#ffffffff');
     root.style.setProperty('--bg-language-switch', '#F9F9F9');
     root.style.setProperty('--prompt-bg', '#FDFEFF');
     root.style.setProperty('--prompt-text', '#4A5362');
@@ -715,6 +727,11 @@ toggle.addEventListener("change", () => {
     root.style.setProperty('--text-subtitle', '#536073');
     root.style.setProperty('--text-placeholder', '#6F7E93');
     root.style.setProperty('--text-dark', '#1a1a1a');
+    root.style.setProperty('--header-footer', '#ffffff');
+    root.style.setProperty('--button-shadow', '#c4cfe3');
+
+     logoLight.style.display = "inline";
+    logoDark.style.display = "none";
   }
 });
 
