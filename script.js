@@ -75,7 +75,6 @@ function typeText(container, text, delay = 15, callback) {
   }, 7);
 }
 
-
 function typeTextHTML(container, html, delay = 20, callback) {
   container.innerHTML = ''; 
 
@@ -94,22 +93,47 @@ function typeTextHTML(container, html, delay = 20, callback) {
     const node = nodes[currentIndex];
     
     if (node.nodeType === Node.TEXT_NODE) {
+      console.log("spaaaaaaaaaaaaaaaaaaaaan");
+      
       const span = document.createElement("span");
       container.appendChild(span);
+console.log(span, "🦋");
 
       typeText(span, node.textContent, delay, () => {
         currentIndex++;
         typeNextNode();
+        console.log(span, "🦋");
+        console.log(!span.textContent.trim(), "🔥");
+        if (!span.textContent.trim()) {
+    span.remove(); // ջնջում ենք DOM-ից
+  } else {
+    console.log(span, "🫣🫣🫣🫣");
+  }
       });
+
     } else if (node.nodeType === Node.ELEMENT_NODE) {
       const clone = node.cloneNode(false); 
       container.appendChild(clone);
 
-      const childHTML = node.innerHTML;
+      // 🧼 Մաքրում ենք node.innerHTML-ից դատարկ span-ները
+      let childHTML = node.innerHTML;
+
+      const temp = document.createElement("div");
+      temp.innerHTML = childHTML;
+
+      temp.querySelectorAll("span").forEach((el) => {
+        if (!el.textContent.trim()) {
+          el.remove();
+        }
+      });
+
+      childHTML = temp.innerHTML;
+
       typeTextHTML(clone, childHTML, delay, () => {
         currentIndex++;
         typeNextNode();
       });
+
     } else {
       currentIndex++;
       typeNextNode();
@@ -139,11 +163,11 @@ function typeTextHTML(container, html, delay = 20, callback) {
           `;
       case "Services for Clients":
         return `
-          <p><b>Our Specialized IAM & Cybersecurity Recruitment Services</b></p>
+          <h2>Our Specialized IAM & Cybersecurity Recruitment Services</h2>
 
 <p>Partner with <b>IAM Hiring</b> to overcome your IAM talent challenges. We offer flexible and effective recruitment solutions designed to meet your precise requirements, whether you're expanding your internal IAM team or scaling consulting teams selling IAM services.</p>
 
-<p><b>Our Core Talent Solutions:</b></p>
+<h2>Our Core Talent Solutions:</h2>
 
 <ul>
   <li><b>Permanent Placement (Direct Hire):</b> Securing long-term IAM and Cybersecurity talent is crucial for sustained growth and compliance. We specialize in identifying, attracting, and placing permanent professionals who will integrate seamlessly into your team and strengthen your security posture.
@@ -165,6 +189,7 @@ function typeTextHTML(container, html, delay = 20, callback) {
 </ul>
 
   <img src="./img/sect04.png" class="section-img" alt="">
+ <div class="space"></div>
 
         `;
       case "Hiring Process":
@@ -184,6 +209,7 @@ function typeTextHTML(container, html, delay = 20, callback) {
   <li><b>Offer Management & Post-Placement Support:</b> We facilitate offer negotiations, ensuring a smooth and successful acceptance. Our support extends to post-placement follow-ups, ensuring successful integration and satisfaction for both client and candidate, reducing CISOs' concerns about team attrition.</li>
 </ol>
 <img src="./img/sect05.png" class="section-img" alt="">
+ <div class="space"></div>
         `;
       case "Technological Expertise & Roles":
         return `
@@ -262,6 +288,7 @@ OAuth, OpenID Connect, SAML, SCIM, LDAP, Kerberos.</p>
 <p><b>DevSecOps Tooling Expertise:</b><br>
 Kubernetes Identity, API Security, CI/CD pipeline security.</p>
 <img src="./img/sect06.png" class="section-img" alt="">
+ <div class="space"></div>
         `;
       case "IAM Talent Network":
         return `
@@ -270,6 +297,7 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
         <p>Our vast network comprises <b>over 8,000 highly skilled IAM professionals</b>, with approximately <b>5,000 top talents located right here in Germany</b>. What truly sets us apart is the depth of our relationships: we've personally engaged with <b>every single one of these experts</b>, whether through in-depth online interviews, face-to-face meetings at industry conferences, or during dedicated meetups.</p>
         <p>This personal connection means we don't just know their skills; we understand their career aspirations, their ideal work environment, and exactly <b>what opportunity will be truly attractive for them to make a job change</b>. When you partner with us, you're not waiting for a search to begin; we likely <b>already know the ideal candidate you're looking for</b>, enabling faster, more precise placements that genuinely last.</p>
         <img src="./img/sect02.png" class="section-img" alt="">
+         <div class="space"></div>
         `;
       case "Story & Purpose":
         return `
@@ -281,53 +309,75 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
 
 <p>We built <b>IAM Hiring</b> as a direct response, focusing solely on this complex domain. We understand that robust <b>IAM</b> is a critical foundation, not just a technology. Our deep specialization provides unparalleled market intelligence and direct access to a network of highly sought-after IAM professionals. We are the trusted, specialized firm that both top talents and hiring managers prefer.</p>
 <img src="./img/sect03.png" class="section-img" alt="">
+ <div class="space"></div>
         `;
       case "Team":
         return `
-        <article class="team-member">
+
+<article class="team-member">
           <img class="team-member-img" src="./img/team01.png" alt="">
     <div class="article-cont">
-    <p><h3>Katja Olkhovaia</b></h3>
-    <p>
-      With 16 years of experience in IT Recruitment and a network of over 27,000 IT experts, Katja brings unparalleled insight into the industry. </p> 
-      <p>She leads our strategic client partnerships, ensuring we deliver on the specific needs of CISOs and Heads of IAM.
-    </p>
-    <p><b>Email:</b> <a href="mailto:katja@iamhiring.de">katja@iamhiring.de</a></p>
-    <p><b>Teams:</b> <a href="https://getwhitelisted.de/katja" target="_blank" rel="noopener noreferrer">https://getwhitelisted.de/katja</a></p>
+    <div class="title-cont">
+     <h3>Katja Olkhovaia</h3>
+     <h4>Strategic IAM Hiring Partner</h4>
+    </div>
+    <div class="text">
+     <p>With 16 years of experience in IT Recruitment and a network of over 27,000 IT experts, Katja brings unparalleled insight into the industry. </p> 
+      <p>She leads our strategic client partnerships, ensuring we deliver on the specific needs of CISOs and Heads of IAM.</p>
+    </div>
+    <div class="contact">
+     <p><b>Email:</b> <a href="mailto:katja@iamhiring.de">katja@iamhiring.de</a></p>
+    <p><b>Book a call:</b> <a href="https://getwhitelisted.de/katja" target="_blank" rel="noopener noreferrer">https://getwhitelisted.de/katja</a></p>
+    </div>
     </div>
   </article>
-<article class="team-member">
-  <img class="team-member-img" src="./img/team02.png" alt="">
-  <div class="article-cont">
-    <p><b>Darius Starks</b></p>
-    <p>
-      11 years of recruitment experience. Focusing on recruiting IAM and Security professionals since 2017, Darius has developed a passion for the security community and the joy of connecting the right security experts together.
-    </p>
-    <p><b>Email:</b> <a href="mailto:darius@iamhiring.de">darius@iamhiring.de</a></p>
-  </div>
-</article>
+
 
 <article class="team-member">
-  <img class="team-member-img" src="./img/team03.png" alt="">
-  <div class="article-cont">
-    <p><b>Vladyslav Kartyshov</b></p>
-    <p>
-      Vladyslav brings over 5 years of experience in IT-Security recruitment with a specialized focus on Information Security (ISMS, GRC, ISO 27001, BSI IT-Grundschutz) and Cyber Security (SIEM, SOC, Network Security and Ethical Hacking). Supported by a strong network of proven IT-Security professionals, he delivers deep industry insights and precise talent solutions.
-    </p>
-    <p><b>Email:</b> <a href="mailto:vladislav@iamhiring.de">vladislav@iamhiring.de</a></p>
-  </div>
-</article>
+          <img class="team-member-img" src="./img/team02.png" alt="">
+    <div class="article-cont">
+    <div class="title-cont">
+     <h3>Darius Starks</h3>
+     <h4>IAM Talent Partner & Technical Recruiter</h4>
+    </div>
+    <div class="text">
+     <p>Darius combines deep technical curiosity with sharp recruiting instincts. With a strong focus on IAM, PAM, and cybersecurity architecture roles, he thrives in finding experts who don’t just check the boxes—but elevate the whole system.</p> 
+      <p>He’s passionate about building secure futures for both startups and enterprise-level clients.</p>
+    </div>
+    <div class="contact">
+     <p><b>Email:</b> <a href="mailto:darius@iamhiring.de">darius@iamhiring.de</a></p>
+    </div>
+    </div>
+  </article>
 
+
+<article class="team-member">
+          <img class="team-member-img" src="./img/team03.png" alt="">
+    <div class="article-cont">
+    <div class="title-cont">
+     <h3>Vladyslav Kartyshov</h3>
+     <h4>GRC & Compliance Talent Specialist</h4>
+    </div>
+    <div class="text">
+     <p>Vladyslav specializes in the intersection of governance, risk, and compliance with identity management. With hands-on experience in ISMS, GDPR, and BSI standards, he’s a trusted advisor for regulated industries hiring in the DACH region.</p> 
+      <p>He ensures our candidates meet not only technical, but also legal and regulatory demands</p>
+    </div>
+    <div class="contact">
+     <p><b>Email:</b> <a href="mailto:vlad@iamhiring.de">vlad@iamhiring.de</a></p>
+    </div>
+    </div>
+  </article>
+ <div class="space"></div>
   `;
       case "For IAM Professionals":
         return `
-          <p><b>For IAM Professionals: Your Next Career Move Starts Here</b></p>
+          <h2>For IAM Professionals: Your Next Career Move Starts Here</h2>
 
   <p>
     As a leading specialized IAM and Cybersecurity recruiter in Germany and DACH, we're dedicated to connecting top talent like you with rewarding career opportunities at innovative companies. Let us help you navigate your next career move, whether you're an IAM Engineer, Architect, or PAM Specialist.
   </p>
 
-  <p><b>Why Partner With IAM Hiring?</b><br>
+  <h2>Why Partner With IAM Hiring?</h2>
     We're trusted by top talents who seek meaningful career progression, not just another job. We understand your expertise in Okta, SailPoint, CyberArk, and Azure AD, and we match you with roles that truly fit.
   </p>
 
@@ -353,7 +403,7 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
   <a href="#contact">Send Us Your CV</a> | <a href="#consultation">Request a Career Consultation</a>
   </p>
   <img src="./img/sect07.png" class="section-img" alt="">
-
+ <div class="space"></div>
         `;
       case "Contact":
         return `
@@ -361,7 +411,7 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
     Ready to find your next IAM expert for your Banking, Tech, or Manufacturing enterprise, or looking for your next career opportunity in IAM/Cybersecurity? Get in touch with our specialized team today.
   </p>
 
-  <p><b>Send Us a Message in the Chat:</b></p>
+  <h4>Send Us a Message in the Chat:</h4>
   <ul>
     <li>Your Name:</li>
     <li>Your Email:</li>
@@ -369,26 +419,28 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
     <li>Your Message:</li>
   </ul>
 
-  <p><b>Or Reach Us Directly:</b></p>
+  <h4>Or Reach Us Directly:</h4>
   <ul>
     <li><strong>Phone:</strong> +49 30 70016612</li>
-    <li><strong>Email:</strong> <a href="mailto:info@iamhiring.de">info@iamhiring.de</a></li>
+    <li><strong>Email:</strong> <a href="mailto:info@iamhiring.de">team@iamhiring.de</a></li>
     <li><strong>Office Address:</strong> Ziegelstraße 16, 10117 Berlin, Germany</li>
     <li><strong>Business Hours:</strong> Monday - Friday: 9:00 AM - 6:00 PM (CET)</li>
   </ul>
 
-  <p><b>Connect With Us:</b></p>
+  <h4>Connect With Us:</h4>
   <p>
     <a href="https://www.linkedin.com/company/107770925/admin/dashboard/" target="_blank" rel="noopener noreferrer">LinkedIn Company Page</a>
   </p>
+   <div class="space"></div>
         `;
       case "Career Consultation":
       return `
-        <p><b>Ready to strategically plan your next career move in Identity & Access Management?</b> Our experienced team at IAM Hiring is here to consult with you.</p>
+        <p>Ready to strategically plan your next career move in <b>Identity & Access Management?</b> Our experienced team at IAM Hiring is here to consult with you.</p>
         <p>We offer personalized career guidance, insights into the latest IAM market trends in Germany and DACH, and expert advice on optimizing your job search. Whether you're looking for market intelligence, interview preparation tips, or a clear path for your professional growth, we're dedicated to helping you achieve your aspirations.</p>
-        <p>Book your confidential career consultation by clicking the link below:</p>
+        <p><b>Book your confidential career consultation by clicking the link below:</b></p>
         <p><a href="https://outlook.office.com/book/IAMhiring@starks-consulting.de/?ismsaljsauthenabled" target="_blank" rel="noopener noreferrer">Schedule Career Consultation</a></p>
-      `;
+     <div class="space"></div>
+        `;
       case "Current IAM Job Openings":
   return `
     <p><b>Ready for Your Next IAM Career Step?</b></p>
@@ -406,6 +458,7 @@ Kubernetes Identity, API Security, CI/CD pipeline security.</p>
       <li>Are there any other specific job requirements or preferences you have? (e.g., industry focus, company size, specific tech stack you want to work with, team culture, work-life balance needs)</li>
     </ul>
     <p>We look forward to reviewing your profile and helping you advance your career!</p>
+     <div class="space"></div>
   `;
 
       

@@ -316,33 +316,75 @@ p, b, span {
     margin-bottom: 10px;
 }
 ul, ol {
-    padding-left: 30px;
+    padding: 6px 0 12px 30px;
 }
 li {
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 img.team-member-img {
     width: 29%;
     display: block;
-    margin-bottom: 10px;
     border-radius: 12px;
         margin-right: 2%;
 }
+ul ul {
+  padding-bottom: 0 !important;
+}
+ul ~ img, ol ~ img, ul ~ h4, ol ~ h4  {
+  border: 2px solid red;
+  margin-top: 0 !important;
+}
+
 article.team-member {
-    border-bottom: 1px solid #f0f3f7;
     margin-bottom: 15px;
-    padding-bottom: 10px;
     display: flex;
     justify-content: start;
 }
 .article-cont {
-    width: 66%;
+    width: 69%;
+    background-color: #E9EDEF;
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.contact a {
+    display: inline-block;
+    margin-left: 12px;
+}
+.contact p:last-child {
+    margin-top: 2px;
+}
+.text p {
+    font-size: 15px;
+}
+.contact {
+    font-size: 14px;
+}
+.contact p {
+  margin-bottom: 0!important;
+}
+.article-cont span {
+  /* display: none; */
+}
+.article-cont h3 span {
+    font-weight: 500;
+}
+.article-cont h4 span {
+    font-size: 14px;
+    font-weight: 400;
 }
 img.section-img {
     width: 70%;
     border-radius: 12px;
     display: block;
-    margin: 8px 0;
+    margin: 16px 0 8px 0;
+}
+.message h2 {
+    font-weight: 500;
+    font-size: 19px;
+    margin: 8px 0 8px;
 }
 hr {
     outline: none;
@@ -368,7 +410,7 @@ hr {
     padding: 7px;
     border-radius: 7px;
     width: fit-content;
-    margin: 15px 0;
+    margin-bottom: 15px;
 }
 .user-message {
  border: 1px solid var(--border-color);
@@ -423,9 +465,23 @@ hr {
 .new-bot-message {
   min-height: calc(95dvh - 240px);
   /* font-size: calc(100dvh - 240px); */
+      margin-bottom: 5px;
+      height: max-content;
 }
-b {
+.space {
+    height: 15px;
+    width: 100%;
+}
+b, strong {
     font-weight: 500;
+}
+.message h4 {
+    font-weight: 500;
+    margin: 16px 0 12px;
+}
+strong {
+  display: inline-block;
+  margin-right: 5px;
 }
 .quick-prompts-footer {
 position: absolute;
@@ -539,7 +595,7 @@ a {
   } */
        .new-bot-message {
         /* min-height: 64dvh !important; */
-        min-height: calc(87dvh - 185px);
+        min-height: calc(89dvh - 185px);
     }
     .chatbox-footer-btn img {
     margin-right: 0;
