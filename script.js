@@ -743,13 +743,33 @@ chatState = "done";
 
   }
 });
+
+
+const toggle = document.getElementById("modeToggle");
+const root = document.documentElement;
 const logoLight = document.getElementById("logo-light");
 const logoDark = document.getElementById("logo-dark");
 
-const toggle = document.getElementById("modeToggle");
-toggle.addEventListener("change", () => {
-  const root = document.documentElement;
+// Սկսենք dark mode-ով
+toggle.checked = true;
 
+// Տալ dark mode արժեքները սկզբից
+root.style.setProperty('--bg-page', '#19212E');
+root.style.setProperty('--bg-chatbox', '#333942');
+root.style.setProperty('--bg-language-switch', '#2D343E');
+root.style.setProperty('--prompt-bg', '#2E343F');
+root.style.setProperty('--prompt-text', '#F1F2F2');
+root.style.setProperty('--border-color', '#3A414B');
+root.style.setProperty('--text-subtitle', '#B0B8C1');
+root.style.setProperty('--text-placeholder', '#A0AAB4');
+root.style.setProperty('--text-dark', '#ffffff');
+root.style.setProperty('--header-footer', '#333942');
+root.style.setProperty('--button-shadow', '#6c788d');
+
+logoLight.style.display = "none";
+logoDark.style.display = "inline";
+
+toggle.addEventListener("change", () => {
   if (toggle.checked) {
     // DARK MODE
     root.style.setProperty('--bg-page', '#19212E');
@@ -758,17 +778,13 @@ toggle.addEventListener("change", () => {
     root.style.setProperty('--prompt-bg', '#2E343F');
     root.style.setProperty('--prompt-text', '#F1F2F2');
     root.style.setProperty('--border-color', '#3A414B');
-    root.style.setProperty('--text-subtitle', '#B0B8C1'); // օրինակ
+    root.style.setProperty('--text-subtitle', '#B0B8C1');
     root.style.setProperty('--text-placeholder', '#A0AAB4');
     root.style.setProperty('--text-dark', '#ffffff');
     root.style.setProperty('--header-footer', '#333942');
     root.style.setProperty('--button-shadow', '#6c788d');
-
-     // Logo switch
     logoLight.style.display = "none";
     logoDark.style.display = "inline";
-
-
   } else {
     // LIGHT MODE
     root.style.setProperty('--bg-page', '#F2F7FD');
@@ -782,8 +798,7 @@ toggle.addEventListener("change", () => {
     root.style.setProperty('--text-dark', '#1a1a1a');
     root.style.setProperty('--header-footer', '#ffffff');
     root.style.setProperty('--button-shadow', '#c4cfe3');
-
-     logoLight.style.display = "inline";
+    logoLight.style.display = "inline";
     logoDark.style.display = "none";
   }
 });
