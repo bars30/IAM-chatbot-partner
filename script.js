@@ -691,13 +691,37 @@ clearBtn.addEventListener('click', () => {
 
 sendBtn.addEventListener("click", () => {
   const userInput = chatboxInput.value.trim();
-  if (!userInput) return;
+  if (!userInput && selectedFiles.length === 0) return;
 
   promptsSection.classList.add("fade-out");
   promptsSection.classList.add("fade-out-display-none");
   questionsBtn.classList.add("visible");
 
-  addMessage(userInput, "user");
+  
+  // 1️⃣ Ավելացնում ենք user-ի տեքստը, եթե կա
+  if (userInput) {
+    addMessage(userInput, "user");
+  }
+// 2️⃣ Եթե ֆայլեր կան՝ ավելացնում ենք նաև ֆայլերի preview-ը
+  if (selectedFiles.length > 0) {
+    let filesHTML = "";
+
+    selectedFiles.forEach((file) => {
+      filesHTML += `
+        <div class="file-preview">
+          <div class="file-header">
+            <img src="./img/file.svg" alt="">
+            <span class="file-name">${file.name}</span>
+          </div>
+        </div>
+      `;
+    });
+
+    addMessage(filesHTML, "user"); // ֆայլերը կավելանան որպես user-message
+    selectedFiles = [];            // մաքրում ենք զանգվածը
+    updatePreview();               // մաքրում ենք file-preview-container-ը
+    updateFileList();              // reset անում ենք input.files
+  }
 
   chatboxInput.value = "";
   chatboxInput.style.height = "auto";
