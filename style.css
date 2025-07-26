@@ -96,6 +96,38 @@ body {
     background-color: var(--header-footer);
     border-radius: 12px;
 }
+#file-preview-container {
+  margin-top: 5px;
+    display: flex;
+    padding: 0 12px;
+    gap: 8px;
+}
+
+.file-preview {
+      display: flex;
+    gap: 8px;
+    background: var(--bg-page);
+    padding: 6px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 8px;
+    justify-content: space-between;
+}
+.file-header {
+    display: flex;
+    gap: 6px;
+    margin-right: 6px;
+}
+.file-preview .remove-file {
+background: none;
+    border: none;
+    cursor: pointer;
+    color: red;
+    background-color: white;
+    height: 18px;
+    border-radius: 15px;
+}
+
 .chatbox-header {
  display: flex;
  justify-content: space-between;

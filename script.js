@@ -751,15 +751,57 @@ chatState = "done";
 });
 
 const fileInput = document.getElementById("file-upload");
+const filePreviewContainer = document.getElementById("file-preview-container");
+
+// Պահում ենք ընտրված ֆայլերը
+let selectedFiles = [];
 
 fileInput.addEventListener("change", () => {
-  const file = fileInput.files[0];
-  if (file) {
-    console.log("Selected file:", file.name);
-    // Այստեղ կարող ես ֆայլը ուղարկել backend-ին
+  const newFile = fileInput.files[0]; // օգտատերը ամեն անգամ 1 ֆայլ է ընտրում
+  if (!newFile) return;
+
+  // Եթե նույն անունով ֆայլ արդեն կա, չավելացնենք կրկնակի
+  if (selectedFiles.some(f => f.name === newFile.name)) {
+    fileInput.value = ""; // reset input
+    return;
   }
+
+  selectedFiles.push(newFile);
+
+  updatePreview();
+  updateFileList();
+  fileInput.value = ""; // reset, որ հաջորդ ընտրության ժամանակ նորից trigger անի
 });
 
+function updatePreview() {
+  filePreviewContainer.innerHTML = "";
+
+  selectedFiles.forEach((file, index) => {
+    const fileBlock = document.createElement("div");
+    fileBlock.className = "file-preview";
+    fileBlock.innerHTML = `
+      <div class="file-header">
+        <img src="./img/file.svg" alt="">
+        <span class="file-name">${file.name}</span>
+      </div>
+      <button class="remove-file">  <img src="./img/close.svg" alt=""></button>
+    `;
+    filePreviewContainer.appendChild(fileBlock);
+
+    // Ջնջելու event
+    fileBlock.querySelector(".remove-file").addEventListener("click", () => {
+      selectedFiles.splice(index, 1);
+      updatePreview();
+      updateFileList();
+    });
+  });
+}
+
+function updateFileList() {
+  const dt = new DataTransfer();
+  selectedFiles.forEach(f => dt.items.add(f));
+  fileInput.files = dt.files;
+}
 
 
 
