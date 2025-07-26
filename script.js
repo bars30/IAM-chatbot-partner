@@ -682,6 +682,12 @@ function saveChatHistory() {
 //   }
 // });
 
+const clearBtn = document.querySelector('.chatbox-footer-btn.clear-btn');
+
+clearBtn.addEventListener('click', () => {
+  localStorage.removeItem('chatHistory');
+  location.reload();
+});
 
 sendBtn.addEventListener("click", () => {
   const userInput = chatboxInput.value.trim();
@@ -743,6 +749,19 @@ chatState = "done";
 
   }
 });
+
+const fileInput = document.getElementById("file-upload");
+
+fileInput.addEventListener("change", () => {
+  const file = fileInput.files[0];
+  if (file) {
+    console.log("Selected file:", file.name);
+    // Այստեղ կարող ես ֆայլը ուղարկել backend-ին
+  }
+});
+
+
+
 
 
 const toggle = document.getElementById("modeToggle");
